@@ -2,12 +2,14 @@
 
 if ($_SERVER['REQUEST_METHOD']=='POST') {
 
-    $email = $_POST['email'];
+    $studentId = $_POST['studentId'];
     $password = $_POST['password'];
+
+    echo $studentId.' '.$password;
 
     require_once 'connect.php';
 
-    $sql = "SELECT * FROM users_table WHERE email='$email' ";
+    $sql = "SELECT * FROM students WHERE studentId='$studentId' ";
 
     $response = mysqli_query($conn, $sql);
 
@@ -18,11 +20,11 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
         
         $row = mysqli_fetch_assoc($response);
 
-        if ( password_verify($password, $row['password']) ) {
+        if ( password_verify($password, $row['appPassword']) ) {
             
-            $index['name'] = $row['name'];
+            $index['name'] = $row['firstName'].' '.$row['lastName'];
             $index['email'] = $row['email'];
-            $index['id'] = $row['id'];
+            $index['studentId'] = $row['studentId'];
 
             array_push($result['login'], $index);
 

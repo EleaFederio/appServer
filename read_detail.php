@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
 
     require_once 'connect.php';
 
-    $sql = "SELECT * FROM users_table WHERE id='$id' ";
+    $sql = "SELECT * FROM books WHERE book_id='$id' ";
 
     $response = mysqli_query($conn, $sql);
 
@@ -16,10 +16,11 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
     if( mysqli_num_rows($response) === 1 ) {
         
         if ($row = mysqli_fetch_assoc($response)) {
- 
-             $h['name']        = $row['name'] ;
-             $h['email']       = $row['email'] ;
- 
+            
+             $h['title']        = $row['title'] ;
+             $h['author']       = $row['author'] ;
+             $h['publisher']       = $row['publisher'] ;
+             
              array_push($result["read"], $h);
  
              $result["success"] = "1";
